@@ -104,17 +104,13 @@ input, textarea {
 :focus { outline-color: var(--orange-yellow-crayola); }
 html { font-family: var(--ff-poppins); }
 html, body {
-  margin: 0;
-  height: 100%;
-  background: linear-gradient(135deg, #1E293B, #0F172A);
-  overscroll-behavior: none;
-  height: auto;
-  margin: 0;
-  padding: 0;
-  height: 100%; /* Full viewport height */
-  overflow: auto; /* Allow scrolling if content overflows */
-  background: linear-gradient(135deg, #1E293B, #0F172A);
-  scrollbar-color: var(--orange-yellow-crayola) var(--eerie-black-1);
+    margin: 0;
+    padding: 0;
+    min-height: 100%; /* allows body to grow with content */
+    background: linear-gradient(135deg, #1E293B, #0F172A);
+    overscroll-behavior: none;
+    overflow-x: hidden;
+    scrollbar-color: var(--orange-yellow-crayola) var(--eerie-black-1);
 }
 @media (max-width: 768px) {
   .card-container {
