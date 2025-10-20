@@ -1,7 +1,8 @@
 import { FaPaperPlane } from 'react-icons/fa';
 import styled from 'styled-components';
+import { useForm, ValidationError } from '@formspree/react';
 
-
+// ---------- Styled Components ----------
 const ContactSection = styled.article`
   max-width: 500px;
   margin: auto;
@@ -78,19 +79,33 @@ const Icon = styled.span`
   align-items: center;
 `;
 
+const SuccessMessage = styled.p`
+  color: #4ade80;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1rem;
+`;
 
-
+// ---------- Functional Component ----------
 function Contact() {
+  const [state, handleSubmit] = useForm("xanpzwvq"); // replace with your Formspree form ID
+
+  if (state.succeeded) {
+    return <SuccessMessage>✅ Thanks! Your message has been sent successfully.</SuccessMessage>;
+  }
+
   return (
     <ContactSection>
       <Title>Contact Form</Title>
-      <Form>
-          <Input type="text" name="fullname" placeholder="Full name" required />
-          <Input type="email" name="email" placeholder="Email address" required />
+      <Form onSubmit={handleSubmit}>
+        <Input type="text" name="fullname" placeholder="Full name" required />
+        <Input type="email" name="email" placeholder="Email address" required />
+        <ValidationError prefix="Email" field="email" errors={state.errors} />
         <TextArea name="message" rows="5" placeholder="Your Message" required></TextArea>
-        <Button type="submit">
+        <ValidationError prefix="Message" field="message" errors={state.errors} />
+        <Button type="submit" disabled={state.submitting}>
           <Icon><FaPaperPlane /></Icon>
-          <span>Send Message</span>
+          <span>{state.submitting ? 'Sending...' : 'Send Message'}</span>
         </Button>
       </Form>
     </ContactSection>
